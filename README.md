@@ -2,6 +2,30 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
 
+## Managing Projects & Libraries
+
+### To create a new Application
+
+```bash
+ng generate application my-app
+```
+
+### To create a new Library
+
+```bash
+ng generate library shared-lib
+```
+
+### Serve Specific Project
+```bash
+ng serve my-app
+```
+
+### Build Specific Project
+```bash
+ng build shared-lib
+```
+
 ## Development server
 
 To start a local development server, run:

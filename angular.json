@@ -6,5 +6,68 @@
   },
   "newProjectRoot": "projects",
   "projects": {
+    "new-resource-apis": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/new-resource-apis",
+      "sourceRoot": "projects/new-resource-apis/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/new-resource-apis/src/main.ts",
+            "tsConfig": "projects/new-resource-apis/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/new-resource-apis/public"
+              }
+            ],
+            "styles": [
+              "projects/new-resource-apis/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "new-resource-apis:build:production"
+            },
+            "development": {
+              "buildTarget": "new-resource-apis:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
   }
 }
