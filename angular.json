@@ -25,6 +25,7 @@
               }
             ],
             "styles": [
+              "projects/new-resource-apis/src/material-theme.scss",
               "projects/new-resource-apis/src/styles.css"
             ]
           },
