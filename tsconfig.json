@@ -28,6 +28,12 @@
     },
     {
       "path": "./projects/new-resource-apis/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/keycloak-auth-demo/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/keycloak-auth-demo/tsconfig.spec.json"
     }
   ]
 }

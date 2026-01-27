@@ -1,6 +1,6 @@
 import {finalize, merge, Observable, retry, Subject, switchMap, timer} from 'rxjs';
-import {computed, Signal, signal, WritableSignal} from '@angular/core';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {computed, DestroyRef, inject, Signal, signal, WritableSignal} from '@angular/core';
+import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 
 type ResourceLoader<T, R> = (params: R) => Observable<T>;
 
@@ -42,6 +42,7 @@ function retryHttp<T>(options: RetryOptions = {}) {
 }
 
 export function smartHttpResource<T, R>(options: SmartHttpResourceOptions<T, R>): SmartHttpResource<T> {
+  const destroyRef = inject(DestroyRef);
   const isLoading = signal(false);
   const error = signal<unknown | null>(null);
   const value = signal<T | null>(null);
@@ -65,7 +66,8 @@ export function smartHttpResource<T, R>(options: SmartHttpResourceOptions<T, R>)
         return options.loader(paramsSignal())
           .pipe(
             retryHttp(options.retryOptions),
-            finalize(() => isLoading.set(false))
+            finalize(() => isLoading.set(false)),
+            takeUntilDestroyed(destroyRef),
           );
       })
     );
