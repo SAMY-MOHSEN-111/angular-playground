@@ -132,6 +132,69 @@
           "builder": "@angular/build:unit-test"
         }
       }
+    },
+    "reusable-components": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/reusable-components",
+      "sourceRoot": "projects/reusable-components/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/reusable-components/src/main.ts",
+            "tsConfig": "projects/reusable-components/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/reusable-components/public"
+              }
+            ],
+            "styles": [
+              "projects/reusable-components/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "reusable-components:build:production"
+            },
+            "development": {
+              "buildTarget": "reusable-components:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
     }
   }
 }
