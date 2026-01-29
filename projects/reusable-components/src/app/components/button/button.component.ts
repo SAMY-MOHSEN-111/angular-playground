@@ -1,8 +1,5 @@
 import {Component, computed, input, output} from '@angular/core';
-import {BUTTON_BASE, BUTTON_SIZES, BUTTON_VARIANTS} from './button.styles';
-
-type ButtonVariant = 'primary' | 'danger' | 'ghost';
-type ButtonSize = 'sm' | 'md' | 'lg';
+import {BUTTON_BASE, BUTTON_SIZES, BUTTON_VARIANTS, ButtonSize, ButtonVariant} from './button.styles';
 
 @Component({
   selector: 'ui-button',
