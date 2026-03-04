@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { Router } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
+import Keycloak from 'keycloak-js';
 
 @Component({
   standalone: true,
@@ -12,16 +12,19 @@ import { Router } from '@angular/router';
   `
 })
 export class OnboardingComponent {
-  constructor(private keycloakService: KeycloakService, private router: Router) {}
+  readonly #router = inject(Router);
+  readonly #keycloak = inject(Keycloak);
 
   async create(orgName: string) {
     console.log("Creating:", orgName);
+     const refreshed = await this.#keycloak.updateToken();
+     if(refreshed){
+       console.log("Token was successfully refreshed");
+       console.log("New Token: ", this.#keycloak.tokenParsed);
+     } else {
+       console.log("Token is still valid");
+     }
 
-    // 1. Logic to call your backend to save the org...
-
-    // 2. IMPORTANT: Force a token refresh so the new claim appears
-    await this.keycloakService.updateToken(-1);
-
-    await this.router.navigate(['/dashboard']);
+    await this.#router.navigate(['/dashboard']);
   }
 }

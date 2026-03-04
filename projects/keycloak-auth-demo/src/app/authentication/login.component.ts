@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {KeycloakService} from 'keycloak-angular';
+import {Component, inject} from '@angular/core';
+import Keycloak from 'keycloak-js';
 
 @Component({
   standalone: true,
@@ -14,20 +14,19 @@ import {KeycloakService} from 'keycloak-angular';
   `
 })
 export class LoginComponent {
-  constructor(private keycloakService: KeycloakService) {
-  }
-
-  login() {
-    this.keycloakService.login({
+  readonly #keycloakService = inject(Keycloak);
+  async login() {
+    await this.#keycloakService.login({
+      prompt: 'login',
       redirectUri: window.location.origin + '/auth/callback',
       scope: 'openid profile email'
-    }).then();
+    })
   }
 
-  register() {
-    this.keycloakService.register({
+  async register() {
+    await this.#keycloakService.register({
       redirectUri: window.location.origin + '/auth/callback',
       scope: 'openid profile email'
-    }).then();
+    })
   }
 }

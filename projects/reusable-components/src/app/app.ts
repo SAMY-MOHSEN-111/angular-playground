@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {Router, RouterOutlet} from '@angular/router';
+import {routes} from './app.routes';
 import {UiButtonComponent} from './components/button/button.component';
-import {UiLeadingIconComponent} from './components/icon/leading-icon.component';
-import {UiTrailingIconComponent} from './components/icon/trailing-icon.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [UiButtonComponent, UiLeadingIconComponent, UiTrailingIconComponent],
+  imports: [RouterOutlet, UiButtonComponent],
   templateUrl: './app.html',
   standalone: true,
   styleUrl: './app.css'
 })
 export class App {
+  protected readonly routes = routes;
+  readonly router = inject(Router);
 }

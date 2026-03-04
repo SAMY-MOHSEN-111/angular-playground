@@ -1,0 +1,73 @@
+<div class="w-full bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+
+  <div
+    class="grid border-b border-gray-200 bg-gray-50 text-gray-700 text-sm font-semibold"
+    [style.grid-template-columns]="gridTemplateColumns()">
+
+    @if (isTableSelectionEnabled()) {
+      <div class="px-4 py-3 flex items-center justify-center">
+        <input
+          type="checkbox"
+          class="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+          [checked]="isAllSelected()"
+          [indeterminate]="isIndeterminate()"
+          (change)="toggleAllRows($event)"
+        />
+      </div>
+    }
+
+    @for (header of tableHeaderColumns(); track header.id) {
+      <div [class]="getHeaderClasses(header)">
+        {{ header.label }}
+      </div>
+    }
+  </div>
+
+  <div class="divide-y divide-gray-200">
+    @for (row of tableDataRows(); track $index) {
+      <div
+        class="grid hover:bg-gray-50 transition-colors duration-150 text-gray-600 text-sm"
+        [style.grid-template-columns]="gridTemplateColumns()">
+
+        @if (isTableSelectionEnabled()) {
+          <div class="px-4 py-3 flex items-center justify-center">
+            <input
+              type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+              [checked]="isSelected(row)"
+              (change)="toggleRow(row, $event)"/>
+          </div>
+        }
+
+        @for (header of tableHeaderColumns(); track header.id) {
+          <div class="{{ getHeaderClasses(header) }}">
+            @if (header.renderFn) {
+              <span [innerHTML]="header.renderFn(row)"></span>
+            } @else if (header.component) {
+              <div class="w-full flex"
+                   [ngClass]="{
+                  'justify-start': header.align === 'left',
+                  'justify-center': header.align === 'center',
+                  'justify-end': header.align === 'right'
+                }">
+                <ng-container *ngComponentOutlet="
+                    header.component.type;
+                    inputs: header.component.inputFn ? header.component.inputFn(row) : undefined
+                  ">
+                </ng-container>
+              </div>
+            } @else {
+              <span class="truncate">{{ row[header.value!] }}</span>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (tableDataRows().length === 0) {
+      <div class="px-4 py-8 text-center text-gray-500 text-sm">
+        {{ 'NO_DATA_AVAILABLE' }}
+      </div>
+    }
+  </div>
+</div>

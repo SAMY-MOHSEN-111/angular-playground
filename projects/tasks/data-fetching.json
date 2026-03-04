@@ -1,0 +1,87 @@
+{
+  "tasks": [],
+  "statistics": [
+    {
+      "id": "stat-001",
+      "title": "Total Tasks",
+      "icon": "📊",
+      "value": 17,
+      "change": "+12",
+      "changeLabel": "this week",
+      "changeType": "positive",
+      "color": "#1976D2"
+    },
+    {
+      "id": "stat-002",
+      "title": "Completed",
+      "icon": "✅",
+      "value": 6,
+      "change": "+5",
+      "changeLabel": "this week",
+      "changeType": "positive",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "stat-003",
+      "title": "In Progress",
+      "icon": "⚡",
+      "value": 5,
+      "change": "+8",
+      "changeLabel": "this week",
+      "changeType": "positive",
+      "color": "#FF9800"
+    },
+    {
+      "id": "stat-004",
+      "title": "Overdue",
+      "icon": "⚠️",
+      "value": 3,
+      "change": "-2",
+      "changeLabel": "this week",
+      "changeType": "negative",
+      "color": "#F44336"
+    }
+  ],
+  "users": [
+    {
+      "id": "user-001",
+      "name": "John Doe",
+      "avatar": "JD",
+      "email": "john.doe@company.com",
+      "role": "Developer"
+    },
+    {
+      "id": "user-002",
+      "name": "Sarah Smith",
+      "avatar": "SS",
+      "email": "sarah.smith@company.com",
+      "role": "Designer"
+    },
+    {
+      "id": "user-003",
+      "name": "Mike Johnson",
+      "avatar": "MJ",
+      "email": "mike.johnson@company.com",
+      "role": "Project Manager"
+    },
+    {
+      "id": "user-004",
+      "name": "Emily Davis",
+      "avatar": "ED",
+      "email": "emily.davis@company.com",
+      "role": "QA Engineer"
+    }
+  ],
+  "meta": {
+    "totalTasks": 17,
+    "totalUsers": 4,
+    "generatedAt": "2026-02-07T20:49:43.761Z",
+    "stats": {
+      "total": 17,
+      "completed": 6,
+      "inProgress": 5,
+      "todo": 6,
+      "overdue": 3
+    }
+  }
+}

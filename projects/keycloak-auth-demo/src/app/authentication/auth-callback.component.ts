@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {KeycloakService} from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 
 @Component({
   standalone: true,
@@ -9,28 +9,29 @@ import {KeycloakService} from 'keycloak-angular';
     <div class="p-10"><h1>Signing you in...</h1></div>`
 })
 export class AuthCallbackComponent implements OnInit {
-
-  constructor(private keycloakService: KeycloakService, private router: Router) {
-  }
+  readonly #router = inject(Router);
+  readonly #keycloak = inject(Keycloak);
 
   async ngOnInit() {
-    const isLoggedIn = this.keycloakService.isLoggedIn();
+    const isLoggedIn = this.#keycloak.authenticated;
     if (isLoggedIn) {
-      const token = this.keycloakService.getKeycloakInstance().tokenParsed as any;
+      console.log(this.#keycloak.token);
+      const token = this.#keycloak.tokenParsed as any;
       const selectedOrg = token?.['selected_org'];
-      let allOrgs = token?.['organization'] || []; // note it is organizations but it is organization for demo
+      console.log("access_token: ", token);
+      let allOrgs = token?.['organizations'] || "[]";
+      console.log(allOrgs);
       allOrgs = JSON.parse(allOrgs);
       console.log(allOrgs);
-      console.log("access_token: ", token);
       if (allOrgs.length === 0) {
-        await this.router.navigate(['/onboarding']);
+        await this.#router.navigate(['/onboarding']);
       } else if (selectedOrg) {
-        await this.router.navigate([`/workspace/${selectedOrg}`]);
+        await this.#router.navigate([`/workspace/${selectedOrg}`]);
       } else {
-        await this.router.navigate(['/login']);
+        await this.#router.navigate(['/login']);
       }
     } else {
-      await this.router.navigate(['/login']);
+      await this.#router.navigate(['/login']);
     }
   }
 }

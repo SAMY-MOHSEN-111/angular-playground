@@ -40,6 +40,12 @@
     },
     {
       "path": "./projects/reusable-components/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/tasks/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/tasks/tsconfig.spec.json"
     }
   ]
 }

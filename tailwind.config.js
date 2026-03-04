@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./projects/**/*.{html,ts}"],
+  darkMode: 'class', // Enable class-based dark mode
   theme: {
     extend: {
       spacing: {
@@ -52,8 +53,13 @@ module.exports = {
         },
         neutral: {
           surface: '#ffffff',
+          'surface-dark': '#1f2937', // Darker background for dark mode
           border: '#e5e7eb',
+          'border-dark': '#4b5563', // Darker border for dark mode
           muted: '#6b7280',
+          'muted-dark': '#d1d5db', // Lighter muted text for dark mode
+          foreground: '#111827', // Default text color
+          'foreground-dark': '#f9fafb', // Lighter text for dark mode
         },
       },
     },
