@@ -1,5 +1,4 @@
 <div class="w-full bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-
   <div
     class="grid border-b border-gray-200 bg-gray-50 text-gray-700 text-sm font-semibold"
     [style.grid-template-columns]="gridTemplateColumns()">
@@ -17,7 +16,7 @@
     }
 
     @for (header of tableHeaderColumns(); track header.id) {
-      <div [class]="getHeaderClasses(header)">
+      <div [class]="headerClassesMap().get(header.id)">
         {{ header.label }}
       </div>
     }
@@ -40,7 +39,7 @@
         }
 
         @for (header of tableHeaderColumns(); track header.id) {
-          <div class="{{ getHeaderClasses(header) }}">
+          <div class="{{ headerClassesMap().get(header.id) }}">
             @if (header.renderFn) {
               <span [innerHTML]="header.renderFn(row)"></span>
             } @else if (header.component) {

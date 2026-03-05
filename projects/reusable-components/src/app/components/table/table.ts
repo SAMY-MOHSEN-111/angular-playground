@@ -14,13 +14,10 @@ export class TableComponent<T> {
   tableDataRows = input.required<T[]>();
   tableHeaderColumns = input.required<TTableColumn<T>[]>();
   isTableSelectionEnabled = input<boolean>(false);
-
   selectedRows = model<T[]>([]);
 
   gridTemplateColumns = computed<string>(() => {
-    const widths = this.tableHeaderColumns().map(col =>
-      col.width || 'minmax(7.5rem, 1fr)'
-    );
+    const widths = this.tableHeaderColumns().map(col => col.width || 'minmax(7.5rem, 1fr)');
 
     if (this.isTableSelectionEnabled()) {
       widths.unshift('3.125rem');
@@ -29,16 +26,21 @@ export class TableComponent<T> {
     return widths.join(' ');
   });
 
-  // TODO: use HashMap
-  // TODO: use scss
-  getHeaderClasses(header: TTableColumn<T>): string {
-    console.log("should run?")
+  headerClassesMap = computed(() => {
+    const map = new Map<string, string>();
+    for (const header of this.tableHeaderColumns()) {
+      map.set(header.id, this.#buildHeaderClasses(header));
+    }
+    return map;
+  });
+
+  #buildHeaderClasses(header: TTableColumn<T>): string {
     const base = 'px-4 py-3 flex items-center';
-    const alignment = this.getAlignmentClass(header.align);
+    const alignment = this.#getAlignmentClass(header.align);
     return `${base} ${alignment} ${header.appliedClasses ?? ''}`.trim();
   }
 
-  getAlignmentClass(align?: string): string {
+  #getAlignmentClass(align?: string): string {
     switch (align) {
       case 'left':
         return 'justify-start';

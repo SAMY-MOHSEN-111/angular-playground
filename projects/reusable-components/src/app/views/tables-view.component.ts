@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {TableComponent} from '../components/table/table';
 import {StatusBadgeComponent} from '../components/badge/badge';
 import {TTableColumn} from '../components/table/table.types';
-import {UiButtonComponent} from '../components/button/button.component';
 
 export interface KanbanTask {
   id: string;
@@ -21,7 +20,6 @@ export interface KanbanTask {
   template: `
     <div class="p-8 bg-gray-50 min-h-screen">
     <h1 class="text-2xl font-bold mb-6 text-gray-800">Task Management</h1>
-      <button (click)="whateverFunction()">Whatever</button>
       <ui-table
       [tableDataRows]="tasks"
       [tableHeaderColumns]="columns"
@@ -75,10 +73,6 @@ export class TablesViewComponent {
       }
     },
   ];
-
-  whateverFunction() {
-    console.log("Whatever");
-  }
 
   // 2. Mock Data Array
   tasks: KanbanTask[] = [
