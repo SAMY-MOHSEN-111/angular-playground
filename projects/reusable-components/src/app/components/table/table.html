@@ -1,4 +1,4 @@
-<div class="w-full bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+<div class="w-full bg-white rounded-lg border border-gray-200 shadow-sm overflow-y-auto">
   <div
     class="grid border-b border-gray-200 bg-gray-50 text-gray-700 text-sm font-semibold"
     [style.grid-template-columns]="gridTemplateColumns()">
@@ -23,7 +23,7 @@
   </div>
 
   <div class="divide-y divide-gray-200">
-    @for (row of tableDataRows(); track $index) {
+    @for (row of tableDataRows(); track row) {
       <div
         class="grid hover:bg-gray-50 transition-colors duration-150 text-gray-600 text-sm"
         [style.grid-template-columns]="gridTemplateColumns()">
@@ -33,13 +33,13 @@
             <input
               type="checkbox"
               class="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
-              [checked]="isSelected(row)"
+              [checked]="selectedRowsSet().has(row)"
               (change)="toggleRow(row, $event)"/>
           </div>
         }
 
         @for (header of tableHeaderColumns(); track header.id) {
-          <div class="{{ headerClassesMap().get(header.id) }}">
+          <div [class]="headerClassesMap().get(header.id)">
             @if (header.renderFn) {
               <span [innerHTML]="header.renderFn(row)"></span>
             } @else if (header.component) {

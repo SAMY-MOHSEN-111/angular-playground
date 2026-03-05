@@ -19,13 +19,15 @@ export interface KanbanTask {
   ],
   template: `
     <div class="p-8 bg-gray-50 min-h-screen">
-    <h1 class="text-2xl font-bold mb-6 text-gray-800">Task Management</h1>
-      <ui-table
-      [tableDataRows]="tasks"
-      [tableHeaderColumns]="columns"
-      [isTableSelectionEnabled]="false">
-    </ui-table>
-  </div>`,
+      <h1 class="text-2xl font-bold mb-6 text-gray-800">Task Management</h1>
+      <div class="w-52">
+        <ui-table
+        [tableDataRows]="tasks"
+        [tableHeaderColumns]="columns"
+        [isTableSelectionEnabled]="true">
+        </ui-table>
+      </div>
+    </div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TablesViewComponent {
